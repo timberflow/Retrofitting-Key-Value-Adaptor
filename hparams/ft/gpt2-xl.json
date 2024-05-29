@@ -1,0 +1,16 @@
+{
+    "layers": [
+        46
+    ],
+    "num_steps": 20,
+    "lr": 1e-4,
+    "weight_decay": 0,
+    "kl_factor": 0,
+    "norm_constraint": 5e-1,
+    "rewrite_module_tmp": ["transformer.h.{}.mlp.c_proj", "transformer.h.{}.mlp.c_fc"],
+    "layer_module_tmp": "transformer.h.{}",
+    "mlp_module_tmp": "transformer.h.{}.mlp",
+    "attn_module_tmp": "transformer.h.{}.attn",
+    "ln_f_module": "transformer.ln_f",
+    "lm_head_module": "transformer.wte"
+}
