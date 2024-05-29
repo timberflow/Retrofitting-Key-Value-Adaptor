@@ -11,7 +11,7 @@ def summarize_multi_rewrite_quality(
 ):
     efficacy, paraphrase, specificity = [], [], []
     for result in results:
-        metrics = summarize_rewrite_quality_zsre(result, False)
+        metrics = summarize_rewrite_quality(result, False)
         efficacy += [metrics[0]]
         paraphrase += [metrics[1]]
         specificity += [metrics[2]]
@@ -29,7 +29,7 @@ def summarize_multi_rewrite_quality(
     )
 
 
-def summarize_rewrite_quality_zsre(
+def summarize_rewrite_quality(
     results: Union[List[Dict], str],
     report: Optional[bool] = True,
 ):

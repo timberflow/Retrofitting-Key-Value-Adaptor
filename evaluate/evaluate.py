@@ -6,14 +6,10 @@ from typing import List, Dict, Union, Optional
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 from others.logging import init_logger
-from evaluate.summarize_utils_zsre import summarize_rewrite_quality_zsre
+from evaluate.summarize_utils import summarize_rewrite_quality
 from data import DS_DICT, EVAL_METHOD_DICT
 
 logger = init_logger()
-
-hf_cache = "./hf_models/gpt2-xl"
-data_dir = "./data/ZSRE/"
-save_dir = "./results/"
 
 def eval_qa(
     model: AutoModelForCausalLM, 
@@ -49,7 +45,7 @@ def eval_qa(
         json.dump(results, f, ensure_ascii=False, indent=2)
     
     if summarize:
-        summarize_rewrite_quality_zsre(results)
+        summarize_rewrite_quality(results)
 
     return results
 
