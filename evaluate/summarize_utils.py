@@ -18,10 +18,12 @@ def summarize_multi_rewrite_quality(
 
     logger.info(
         "Evaluation Results: "
+        "Score: {:.2f}"
         "Efficacy: {:.2f} "
         "Paraphrase: {:.2f} "
         "Specificity: {:.2f} "
         .format(
+            100/3 * (efficacy + paraphrase + specificity),
             100 * np.mean(efficacy),
             100 * np.mean(paraphrase),
             100 * np.mean(specificity),
@@ -51,10 +53,12 @@ def summarize_rewrite_quality(
     if report:
         logger.info(
             "Evaluation Results: "
+            "Score: {:.2f}"
             "Efficacy: {:.2f} "
             "Paraphrase: {:.2f} "
             "Specificity: {:.2f} "
             .format(
+                100/3 * (efficacy + paraphrase + specificity),
                 100 * efficacy,
                 100 * paraphrase,
                 100 * specificity,
