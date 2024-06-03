@@ -16,7 +16,7 @@ def generate_aux_examples(
     records_name: str,
     num_examples_in_subject: int = 2,
     num_examples_out_subject: int = 2,
-    num_examples_itc: int = 4,
+    num_examples_itc: int = 6,
     length: Union[int, Tuple[int, int]] = (2,10),
     temperature: float = 1.,
 ):

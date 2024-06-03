@@ -27,12 +27,6 @@ def shifted_gelu(x, bias):
 def shifted_relu(x, bias):
     return torch.nn.functional.relu(x - bias)
 
-def bloom_gelu(x: torch.Tensor):
-    return x * 0.5 * (1.0 + torch.tanh(0.79788456 * x * (1 + 0.044715 * x * x)))
-
-def shifted_bloom_gelu(x, bias):
-    return bloom_gelu(x - bias)
-
 
 
 ACT2FN = {
@@ -41,11 +35,9 @@ ACT2FN = {
     "swish": swish, 
     "silu": swish, 
     "gelu_new": gelu_new, 
-    "bloom_gelu": bloom_gelu,
     "shifted_swish": shifted_swish,
     "shifted_gelu": shifted_gelu,
     "shifted_relu": shifted_relu,
-    "shifted_bloom_gelu": shifted_bloom_gelu,
 }
 
 def set_seed(seed):
@@ -178,37 +170,12 @@ def set_attr(module, param_name, value, global_prefix = ""):
             current_module = getattr(current_module, attr)
     setattr(current_module, attrs[-1], value)
 
-class CustomizedModel(nn.Module):
-    def __init__(self, model, hparams):
-        super().__init__()
-        self.model = model
-        self.hparams = hparams
-
-    def forward(self, **inputs):
-        if "pred_mask" not in inputs:
-            pred_mask = retain_last_unmasked(inputs["attention_mask"])
-        else:
-            pred_mask = inputs["pred_mask"]
-
-        if "pred_mask" in inputs:
-            del inputs["pred_mask"]
-
-        for block_name in self.hparams.mlp_layers:
-            mlp_block = get_attr(self, block_name)
-            mlp_block.input_dict = copy.deepcopy(inputs)
-            mlp_block.input_dict.update({"pred_mask": pred_mask})
-
-        return self.model.forward(**inputs)
-    
-    def generate(self, **kwargs):
-        return self.model.generate(**kwargs)
-
 def build_cached_forward(model, hparams):
     '''
     convert model.forward to a cached forward method, which can save inputs
     in sub-modules' properties to allow them accessing original inputs during
     forward stage.
-    this function can be replace with torch.nn.register_pre_hook()
+    this function can be replaced with torch.nn.register_pre_hook()
     '''
     def modify_forward(func):
         def wrapper(self, input_ids, attention_mask = None, **inputs):
