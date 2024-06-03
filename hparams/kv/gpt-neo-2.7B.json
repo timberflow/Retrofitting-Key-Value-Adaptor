@@ -9,7 +9,7 @@
     "fine_tuning": false,
     "max_pooling": true,
     "seq_sampling": true,
-    "loc_coefficient": 0,
+    "loc_coefficient": 0.001,
     "recon_coefficient": 0.001,
     "edit_tokens": "first",
     "edit_layer": 30,
