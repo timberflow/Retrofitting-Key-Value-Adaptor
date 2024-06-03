@@ -187,7 +187,7 @@ class zsRE_balanced(Dataset):
         # assert len(inner_answers) > n_edits, "Not enough balanced data"
         return inner_questions, inner_answers, outer_questions, outer_answers, loc_questions, loc_answers
     
-class LAMA_balanced(Dataset):
+class PARAREL_balanced(Dataset):
     def __init__(self, path=f"{hydra.utils.get_original_cwd()}/data/LAMA/lama_qa.json", split="edit", n_edits = 10000):
         # inner = 1*question + (n-1)*rephrases
         # outer = n*rephrases
