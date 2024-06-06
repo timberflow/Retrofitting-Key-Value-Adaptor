@@ -23,7 +23,7 @@
     "ft_bias_name": "new_kn_bias",
     "device": "cuda",
     "forward_method": "iterative",
-    "saved_path": "./checkpoints/kv/new_lora_model.bin",
+    "saved_dir": "./checkpoints/kv/",
     "result_path": "./results/kv/",
     "aux_path": "./stats/kv/",
     "embedding_weight": "lm_head.weight.data",

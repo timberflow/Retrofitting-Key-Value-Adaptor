@@ -19,12 +19,18 @@ def kv_main(
     data_dir: str,
     data_size: int,
     stats_dir: str,
+    cache_dir: str,
     seed: int,
 ):
     
     with open(hparams_path, "r") as f:
         hparams = json.load(f)
         hparams = Hparams(**hparams)
+
+    if not os.path.exists(hf_cache):
+        if not os.path.exists(cache_dir):
+            os.makedirs(cache_dir)
+        hf_cache = os.path.join(cache_dir, hf_cache)
 
     model = AutoModelForCausalLM.from_pretrained(hf_cache).cuda()
     tok = AutoTokenizer.from_pretrained(hf_cache)
@@ -114,6 +120,12 @@ if __name__ == "__main__":
         help="Auxiliary states directory used by ReVa.",
     )
     parser.add_argument(
+        "--cache_dir",
+        type=str,
+        default="./hf_models",
+        help="Saving path of hugging face cache.",
+    )
+    parser.add_argument(
         "--seed",
         type=int,
         default=42,
@@ -137,5 +149,6 @@ if __name__ == "__main__":
         args.data_dir,
         args.dataset_size_limit,
         args.stats_dir,
+        args.cahce_dir,
         args.seed,
     )

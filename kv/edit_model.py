@@ -1,12 +1,9 @@
+import os
 import json
-import random
 import copy
-import tqdm
 import inspect
-import numpy as np
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 
 from others import logging
 from kv.pytorch_utils import (
@@ -293,8 +290,11 @@ class EditModel(object):
                 saved_dict.update({
                 name: param
             })
-        self.logger.info("Saving weight at {}.".format(self.hparams.saved_path))
-        torch.save(saved_dict, self.hparams.saved_path)
+        if not os.path.exists(self.hparams.saved_dir):
+            os.makedirs(self.hparams.saved_dir)
+        saved_path = os.path.join(self.hparams.saved_dir, "new_lora_model.bin")
+        self.logger.info("Saving weight at {}.".format(saved_path))
+        torch.save(saved_dict, saved_path)
 
     def merge_lora_weight(self, weight_path):
         self.logger.info("Loading weight from {}.".format(weight_path))
