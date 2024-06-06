@@ -94,12 +94,11 @@ def layer_stats(
     """
 
     def get_ds():
-        print(ds_name)
         raw_ds = load_dataset(
-            # ds_name,
-            # dict(wikitext="wikitext-103-raw-v1", wikipedia="20220301.en")[ds_name],
-            'parquet', 
-            data_files={'train': './data/WIKIPEDIA/*.parquet'}
+            ds_name,
+            dict(wikitext="wikitext-103-raw-v1", wikipedia="20220301.en")[ds_name],
+            # 'parquet', 
+            # data_files={'train': './data/WIKIPEDIA/*.parquet'}
         )
         maxlen = model.config.n_positions
         if batch_tokens is not None and batch_tokens < maxlen:

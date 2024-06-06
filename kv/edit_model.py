@@ -12,7 +12,6 @@ from kv.pytorch_utils import (
     SeqGenCrossEntropyLoss, 
     get_attr, 
     set_attr,
-    build_pred_mask,
     concat_masked_indexes,
     build_cached_forward,
 )

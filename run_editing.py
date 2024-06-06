@@ -134,7 +134,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--visible_cudas",
         type=str,
-        default="7",
+        default="0",
         help="Visible cuda devices.",
     )
 
