@@ -160,7 +160,7 @@ cython_debug/
 #.idea/
 
 # Custom
-data/*/
+data/stats/
 hf_models/
 stats/
 checkpoints/
