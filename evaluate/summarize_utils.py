@@ -18,7 +18,7 @@ def summarize_multi_rewrite_quality(
 
     logger.info(
         "Evaluation Results: "
-        "Score: {:.2f}"
+        "Score: {:.2f} "
         "Efficacy: {:.2f} "
         "Paraphrase: {:.2f} "
         "Specificity: {:.2f} "
@@ -53,7 +53,7 @@ def summarize_rewrite_quality(
     if report:
         logger.info(
             "Evaluation Results: "
-            "Score: {:.2f}"
+            "Score: {:.2f} "
             "Efficacy: {:.2f} "
             "Paraphrase: {:.2f} "
             "Specificity: {:.2f} "

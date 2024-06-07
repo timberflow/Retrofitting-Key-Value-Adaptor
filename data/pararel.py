@@ -9,11 +9,11 @@ from util.globals import *
 
 ANS_TRIGGER = ""
 
-class PARARPELQADataset:
+class PARARELQADataset:
     def __init__(self, data_dir: Union[List[Dict], str, Path], tok: AutoTokenizer, size=10000, ans_trigger = "", *args, **kwargs):
         if isinstance(data_dir, str) or isinstance(data_dir, Path):
             data_dir = Path(data_dir)
-            lama_loc = data_dir / "LAMA" / "lama_qa.json"
+            lama_loc = data_dir / "PARAREL" / "pararel_qa.json"
 
             with open(lama_loc, "r") as f:
                 raw = json.load(f)
@@ -55,7 +55,7 @@ class PARARPELQADataset:
     def __len__(self):
         return len(self._data)
 
-class PARARPELTrainDataset(object):
+class PARARELTrainDataset(object):
     def __init__(
         self, 
         data_dir: Union[List[Dict], str], 
@@ -70,7 +70,7 @@ class PARARPELTrainDataset(object):
         self.bsz = bsz
         if isinstance(data_dir, str):
             data_dir = Path(data_dir)
-            lama_loc = data_dir / "LAMA" / "lama_qa.json"
+            lama_loc = data_dir / "PARAREL" / "pararel_qa.json"
 
             with open(lama_loc, "r") as f:
                 raw = json.load(f)

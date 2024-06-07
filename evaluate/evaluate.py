@@ -1,3 +1,4 @@
+import os
 import json
 import tqdm
 import datetime
@@ -40,7 +41,11 @@ def eval_qa(
     fn = f"result-{ds_name}-{time_str}.json"
     fp = pathlib.Path(dir_to_save) / fn
 
+    if not os.path.exists(dir_to_save):
+        os.makedirs(dir_to_save)
+
     logger.info(f"Saving results at {fp}.")
+    
     with open(fp, "w", encoding="utf8") as f:
         json.dump(results, f, ensure_ascii=False, indent=2)
     

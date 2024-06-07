@@ -149,6 +149,6 @@ if __name__ == "__main__":
         args.data_dir,
         args.dataset_size_limit,
         args.stats_dir,
-        args.cahce_dir,
+        args.cache_dir,
         args.seed,
     )

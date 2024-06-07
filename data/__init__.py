@@ -1,5 +1,5 @@
-from data.zsre import MendTrainDataset, MENDQADataset
-from data.pararel import PARARELTrainDataset, PARARELQADataset
+from .zsre import MendTrainDataset, MENDQADataset
+from .pararel import PARARELTrainDataset, PARARELQADataset
 
 from evaluate.eval_utils_zsre import compute_rewrite_quality_zsre
 
