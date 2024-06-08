@@ -6,7 +6,7 @@
     "lr": 1e-4,
     "weight_decay": 0,
     "kl_factor": 0,
-    "norm_constraint": 5e-1,
+    "norm_constraint": 5e-2,
     "rewrite_module_tmp": ["transformer.h.{}.mlp.c_proj", "transformer.h.{}.mlp.c_fc"],
     "layer_module_tmp": "transformer.h.{}",
     "mlp_module_tmp": "transformer.h.{}.mlp",

@@ -27,6 +27,7 @@ from baselines.mend import (
     MENDHyperParams,
     MendRewriteExecutor,
 )
+from baselines.run_melo import run
 
 # os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
@@ -147,7 +148,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--alg_name",
-        choices=["ROME", "MEMIT", "FT", "MEND"],
+        choices=["ROME", "MEMIT", "FT", "MEND", "MELO"],
         default="ROME",
         help="Editing algorithm to use. Results are saved in results/<alg_name>/<run_id>, "
         "where a new run_id is generated on each run. "
@@ -208,7 +209,6 @@ if __name__ == "__main__":
         args.ds_name,
         args.dataset_size_limit,
         args.continue_from_run,
-        args.skip_generation_tests,
         args.conserve_memory,
         args.alg_name,
     )
