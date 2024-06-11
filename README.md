@@ -27,7 +27,7 @@ To reproduce baselines, please check the setup procedures in ./baselines. After 
 ```
 # Fine Tuning
 python -m baselines.run_baselines           \
---model_name ./hf_models/gpt2-xl            \
+--model_name gpt2-xl                        \
 --alg_name FT                               \
 --ds_name zsre                              \
 --hparams_fname ./hparams/ft/gpt2-xl.json   \
@@ -35,7 +35,7 @@ python -m baselines.run_baselines           \
 
 # MEND
 python -m baselines.run_baselines           \
---model_name ./hf_models/gpt2-xl            \
+--model_name gpt2-xl                        \
 --alg_name MEND                             \
 --ds_name zsre                              \
 --hparams_fname ./hparams/mend/gpt2-xl.json \
@@ -43,18 +43,18 @@ python -m baselines.run_baselines           \
 
 # ROME
 python -m baselines.run_baselines           \
---model_name ./hf_models/gpt2-xl            \
---alg_name ROME                            \
+--model_name gpt2-xl                        \
+--alg_name ROME                             \
 --ds_name zsre                              \
 --hparams_fname ./hparams/rome/gpt2-xl.json \
 --dataset_size_limit 10000
 
 # MEMIT
 python -m baselines.run_baselines           \
---model_name ./hf_models/gpt2-xl            \
---alg_name MWMIT                            \
+--model_name gpt2-xl                        \
+--alg_name MEMIT                            \
 --ds_name zsre                              \
---hparams_fname ./hparams/memit/gpt2-xl.json \
+--hparams_fname ./hparams/memit/gpt2-xl.json\
 --dataset_size_limit 10000
 
 # MELO
