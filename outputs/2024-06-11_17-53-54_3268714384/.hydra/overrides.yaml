@@ -1,0 +1,3 @@
+- +alg=lora
+- +experiment=zsre
+- +model=gpt2xl

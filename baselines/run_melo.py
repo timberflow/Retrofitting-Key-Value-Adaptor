@@ -18,7 +18,7 @@ from data import DS_DICT
 
 OmegaConf.register_new_resolver("uuid", lambda: uuid())
 LOG = logging.getLogger(__name__)
-@hydra.main(config_path='./baselines/melo/config', config_name='config')
+@hydra.main(config_path='./melo/config', config_name='config')
 def run(config):
     grace_config_keys = ['edit_lr','init_radius','expand_mode','key_id','num_edit_per_block','num_block','num_rank_per_block']
     model_config_keys = ['target_modules','grace_layer']
@@ -55,9 +55,9 @@ def run(config):
         ds_dict = {"zsre": zsRE_balanced, "pararel": PARAREL_balanced}
         balanced_dataset = ds_dict[config.task]
 
-        edits = balanced_dataset(split="edit", n_edits=10000)
-        edit_holdouts = balanced_dataset(split="holdout", n_edits=10000)
-        upstream = balanced_dataset(split="upstream", n_edits=10000)
+        edits = balanced_dataset(split="edit", n_edits=config.max_n_edits)
+        edit_holdouts = balanced_dataset(split="holdout", n_edits=config.max_n_edits)
+        upstream = balanced_dataset(split="upstream", n_edits=config.max_n_edits)
 
         '''Get Loaders
         '''

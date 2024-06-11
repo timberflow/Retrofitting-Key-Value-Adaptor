@@ -6,6 +6,9 @@ from pathlib import Path
 from time import time
 from typing import Tuple, Union
 
+import hydra
+from hydra import initialize, compose
+
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
@@ -148,7 +151,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--alg_name",
-        choices=["ROME", "MEMIT", "FT", "MEND", "MELO"],
+        choices=["ROME", "MEMIT", "FT", "MEND"],
         default="ROME",
         help="Editing algorithm to use. Results are saved in results/<alg_name>/<run_id>, "
         "where a new run_id is generated on each run. "
@@ -159,14 +162,14 @@ if __name__ == "__main__":
         "--model_name",
         default="gpt2-xl",
         help="Model to edit.",
-        required=True,
+        required=False,
     )
     parser.add_argument(
         "--hparams_fname",
         type=str,
         default="gpt2-xl.json",
         help="Name of hyperparameters file, located in the hparams/<alg_name> folder.",
-        required=True,
+        required=False,
     )
     parser.add_argument(
         "--ds_name",
@@ -201,7 +204,7 @@ if __name__ == "__main__":
     )
     parser.set_defaults(skip_generation_tests=False, conserve_memory=False)
     args = parser.parse_args()
-
+    
     main(
         args.alg_name,
         args.model_name,
@@ -212,3 +215,4 @@ if __name__ == "__main__":
         args.conserve_memory,
         args.alg_name,
     )
+

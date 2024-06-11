@@ -8,11 +8,6 @@ target_modules:
   - transformer.h.36.mlp.c_fc
   - transformer.h.37.mlp.c_fc
 
-
-#pt: null
-pt: ${hydra:runtime.cwd}/hf_models/gpt2-xl # set this to 'hallucination' inside your checkpoint directory
-#model.base_model.h[35]
-
-
+pt: ${hydra:runtime.cwd}/hf_models/gpt2-xl
 
 grace_layer: transformer.h.35.mlp.c_fc

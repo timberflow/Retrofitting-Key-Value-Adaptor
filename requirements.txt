@@ -3,3 +3,5 @@ higher
 wandb
 datasets
 peft
+omegaconf
+jsonlines

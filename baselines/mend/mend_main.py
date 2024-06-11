@@ -29,13 +29,13 @@ class MendRewriteExecutor:
         model_filename = (
             f"mend-{mini_string}{params.n_toks}tok-{train_ds}{model_name}.pt"
         )
-        model_dir = "baselines/mend/weights"
+        # model_dir = "baselines/mend/weights"
 
-        os.makedirs(model_dir, exist_ok=True)
-        if not os.path.isfile(f"{model_dir}/{model_filename}"):
-            remote_url = f"{REMOTE_ROOT_URL}/data/weights/{model_filename}"
-            print(f"Attemping to download from {remote_url}")
-            torch.hub.download_url_to_file(remote_url, f"{model_dir}/{model_filename}")
+        # os.makedirs(model_dir, exist_ok=True)
+        # if not os.path.isfile(f"{model_dir}/{model_filename}"):
+        #     remote_url = f"{REMOTE_ROOT_URL}/data/weights/{model_filename}"
+        #     print(f"Attemping to download from {remote_url}")
+        #     torch.hub.download_url_to_file(remote_url, f"{model_dir}/{model_filename}")
         with hydra.initialize(config_path="config", job_name="run"):
             config = hydra.compose(
                 config_name="config",
@@ -61,10 +61,10 @@ class MendRewriteExecutor:
 
         # Load the trained MEND model
         self.alg = MEND(self.model, config, lambda: deepcopy(self.model))
-        d = torch.load(f"{model_dir}/{model_filename}")
-        self.alg.load_state_dict(
-            {k.replace("gtn.", "mend."): v for k, v in d["model"].items()}
-        )
+        # d = torch.load(f"{model_dir}/{model_filename}")
+        # self.alg.load_state_dict(
+        #     {k.replace("gtn.", "mend."): v for k, v in d["model"].items()}
+        # )
         self.alg.cuda()
 
         # Disable unneeded gradients
