@@ -6,9 +6,6 @@ from pathlib import Path
 from time import time
 from typing import Tuple, Union
 
-import hydra
-from hydra import initialize, compose
-
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
@@ -30,7 +27,6 @@ from baselines.mend import (
     MENDHyperParams,
     MendRewriteExecutor,
 )
-from baselines.run_melo import run
 
 # os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
@@ -50,6 +46,7 @@ def main(
     continue_from_run: str,
     conserve_memory: bool,
     dir_name: str,
+    cache_dir: str,
 ):
     # Set algorithm-specific variables
     params_class, apply_algo = ALG_DICT[alg_name]
@@ -85,8 +82,18 @@ def main(
     # Instantiate vanilla model
     print("Instantiating model")
     if type(model_name) is str:
-        model = AutoModelForCausalLM.from_pretrained(model_name).cuda()
-        tok = AutoTokenizer.from_pretrained(model_name)
+        model_name_or_path = model_name
+        if not os.path.exists(model_name):
+            if not os.path.exists(cache_dir):
+                os.makedirs(cache_dir)
+            hf_cache_dir = os.path.join(cache_dir, model_name)
+            if os.path.exists(hf_cache_dir):
+                model_name_or_path = hf_cache_dir
+        else:
+            hf_cache_dir = model_name
+        print("Attempt to load model from {}.".format(model_name_or_path))
+        model = AutoModelForCausalLM.from_pretrained(model_name_or_path, cache_dir=hf_cache_dir).cuda()
+        tok = AutoTokenizer.from_pretrained(model_name_or_path, cache_dir=hf_cache_dir)
         tok.pad_token = tok.eos_token
     else:
         model, tok = model_name
@@ -202,8 +209,22 @@ if __name__ == "__main__":
         help="Reduce memory usage during evaluation at the cost of a minor slowdown. "
         "Backs up model weights on CPU instead of GPU.",
     )
+    parser.add_argument(
+        "--cache_dir",
+        type=str,
+        default="./hf_models",
+        help="Saving path of hugging face cache.",
+    )
+    parser.add_argument(
+        "--visible_cudas",
+        type=str,
+        default="0",
+        help="Visible cuda devices.",
+    )
     parser.set_defaults(skip_generation_tests=False, conserve_memory=False)
     args = parser.parse_args()
+
+    os.environ["CUDA_VISIBLE_DEVICES"] = args.visible_cudas
     
     main(
         args.alg_name,
@@ -214,5 +235,6 @@ if __name__ == "__main__":
         args.continue_from_run,
         args.conserve_memory,
         args.alg_name,
+        args.cache_dir,
     )
 

@@ -50,11 +50,11 @@ python -m baselines.run_baselines           \
 --dataset_size_limit 10000
 
 # MEMIT
-python -m baselines.run_baselines           \
---model_name gpt2-xl                        \
---alg_name MEMIT                            \
---ds_name zsre                              \
---hparams_fname ./hparams/memit/gpt2-xl.json\
+python -m baselines.run_baselines            \
+--model_name gpt2-xl                         \
+--alg_name MEMIT                             \
+--ds_name zsre                               \
+--hparams_fname ./hparams/memit/gpt2-xl.json \
 --dataset_size_limit 10000
 
 # MELO

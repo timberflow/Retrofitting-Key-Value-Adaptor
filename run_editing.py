@@ -27,13 +27,18 @@ def kv_main(
         hparams = json.load(f)
         hparams = Hparams(**hparams)
 
+    model_name_or_path = hf_cache
     if not os.path.exists(hf_cache):
         if not os.path.exists(cache_dir):
             os.makedirs(cache_dir)
-        hf_cache = os.path.join(cache_dir, hf_cache)
-
-    model = AutoModelForCausalLM.from_pretrained(hf_cache).cuda()
-    tok = AutoTokenizer.from_pretrained(hf_cache)
+        hf_cache_dir = os.path.join(cache_dir, hf_cache)
+        if os.path.exists(hf_cache_dir):
+            model_name_or_path = hf_cache_dir
+    else:
+        hf_cache_dir = hf_cache
+    print("Attempt to load model from {}.".format(model_name_or_path))
+    model = AutoModelForCausalLM.from_pretrained(model_name_or_path, cache_dir=hf_cache_dir).cuda()
+    tok = AutoTokenizer.from_pretrained(model_name_or_path, cache_dir=hf_cache_dir)
 
     # set pad_token_id
     if tok.pad_token_id is None:
