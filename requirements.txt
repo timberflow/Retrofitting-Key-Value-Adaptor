@@ -1,4 +1,8 @@
-hydra-score
+numpy
+pandas
+torch
+transformers
+hydra-core
 higher
 wandb
 datasets
