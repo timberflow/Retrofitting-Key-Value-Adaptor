@@ -1,5 +1,8 @@
 # Initializing and Retrofitting Key Value Adaptor
-Coming soon!
+First, install all depenencies with:
+```
+pip install -r requirements.txt
+```
 
 To reproduce the main result of iReVa, you can execute the following command and pay attention to subsequent points.
 ```
